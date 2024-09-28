@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 #include <string>
 
 // Canonic class
@@ -45,6 +46,21 @@ void Bureaucrat::decrementGrade() {
   if ( _grade == 150 )
 	throw GradeTooLowException();
   _grade++;
+}
+
+void Bureaucrat::signForm( AForm &form ) {
+	try {
+		if ( form.getSigned() )
+			std::cout << this->getName() << " can't sign " << form.getName() << " because it's already signed"
+				<< std::endl;
+		else {
+			form.beSigned( *this );
+			std::cout << this->getName() << " signs " << form.getName() << std::endl;
+		}
+	} catch ( std::exception &e ) {
+		std::cout << this->getName() << " couldn't sign " << form.getName() << " because " << e.what()
+			<< std::endl;
+	}
 }
 
 std::ostream &operator<<( std::ostream &out, const Bureaucrat &bureaucrat ) {

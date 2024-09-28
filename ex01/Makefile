@@ -1,7 +1,8 @@
-NAME = ex00
+NAME = ex01
 
 SRC		=	main.cpp \
-			Bureaucrat.cpp 
+			Bureaucrat.cpp \
+			Form.cpp
 
 ifeq ($(shell uname), Linux)
 	CC = clang++
