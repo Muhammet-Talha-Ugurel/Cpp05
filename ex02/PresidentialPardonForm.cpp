@@ -25,8 +25,8 @@ PresidentialPardonForm &PresidentialPardonForm::operator=( const PresidentialPar
   return *this;
 }
 
-void PresidentialPardonForm::execute( const Bureaucrat &executor ) {
+void PresidentialPardonForm::execute( const Bureaucrat &executor ) const {
   if ( getGradeToExecute() < executor.getGrade() )
-    throw AForm::GradeTooLowException("Bureaucrat's is not presidential enough");
+    throw AForm::GradeTooLowException();
   std::cout << _target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }

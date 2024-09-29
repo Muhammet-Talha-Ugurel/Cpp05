@@ -1,9 +1,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "ShrubberyCreationForm.hpp"
-
+#include "Intern.hpp"
 #include <cstddef>
 #include <cstdlib>
 #include <iostream>
@@ -29,31 +26,20 @@ void tryDeleteBureaucrat( Bureaucrat *b ) {
   }
 }
 
+const std::string formNamesToTest[] = { "robotomy", "presidential", "unknown", "shrubbery",
+                                         "presidential pardon" };
+
 AForm *tryNewForm( std::string target ) {
-  int r = rand() % 3;
   try {
     std::cout << "Creating new Form : " << target << std::endl;
-    AForm *res;
-    switch ( r ) {
-      case 0:
-        res = new PresidentialPardonForm( target );
-        break;
-      case 1:
-        res = new RobotomyRequestForm( target );
-        break;
-      case 2:
-        res = new ShrubberyCreationForm( target );
-        break;
-      default:
-        res = new PresidentialPardonForm( target );
-        break;
-    }
+    Intern i;
+    AForm *res = i.makeForm( formNamesToTest[rand() % 4], target );
     std::cout << *res << std::endl;
     return res;
   } catch ( std::exception &e ) {
     std::cout << e.what() << std::endl;
+  	return NULL;
   }
-  return NULL;
 }
 
 void tryDeleteForm( AForm *f ) {
@@ -69,6 +55,8 @@ int main( void ) {
                          tryNewBureaucrat( "b3", 1 ), tryNewBureaucrat( "b4", 150 ),
                          tryNewBureaucrat( "b5", 75 ) };
 
+  std::cout << std::endl;
+
   AForm *formArr[5]  = { tryNewForm( "target1" ), tryNewForm( "target2" ), tryNewForm( "target3" ),
                          tryNewForm( "target4" ), tryNewForm( "target5" ) };
 
@@ -77,9 +65,9 @@ int main( void ) {
   for ( size_t i = 0; i < 5; i++ ) {
     if ( arr[i] ) {
       for ( size_t j = 0; j < 5; j++ ) {
+		std::cout << i << " " << j << std::endl;
         if ( formArr[j] ) {
           arr[i]->signForm( *formArr[j] );
-          arr[i]->executeForm( *formArr[j] );
         }
       }
       tryDeleteBureaucrat( arr[i] );

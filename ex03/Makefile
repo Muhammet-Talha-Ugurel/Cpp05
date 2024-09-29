@@ -1,11 +1,12 @@
-NAME = ex02
+NAME = ex03
 
 SRC		=	main.cpp \
 			Bureaucrat.cpp \
 			AForm.cpp \
 			RobotomyRequestForm.cpp \
 			PresidentialPardonForm.cpp \
-			ShrubberyCreationForm.cpp
+			ShrubberyCreationForm.cpp \
+			Intern.cpp
 
 ifeq ($(shell uname), Linux)
 	CC = clang++
